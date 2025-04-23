@@ -6,6 +6,7 @@ import { PatientsFilter } from "./components/patients-filters";
 import Search from "@/components/search";
 import { PatientsSort } from "./components/patients-sort";
 import { Spinner } from "@/components/spinner";
+import { PatientDetails } from "./components/patient-details";
 
 export default async function PatientsList({
   searchParams,
@@ -38,10 +39,16 @@ export default async function PatientsList({
               <Spinner />
             </div>
           }
-          key={JSON.stringify(searchParams)}
+          key={JSON.stringify({ ...searchParams, patientId: undefined })}
         >
           <PatientsTable searchParams={searchParams} />
         </Suspense>
+
+        {searchParams.patientId ? (
+          <Suspense fallback={<Spinner />}>
+            <PatientDetails patientId={searchParams.patientId ?? ""} />
+          </Suspense>
+        ) : null}
       </div>
     </div>
   );

@@ -9,6 +9,7 @@ import {
 import { Patient, SearchParams } from "../types";
 import { getStatusColor } from "../utils";
 import { getPatients } from "../api";
+import { PatientsTableRow } from "./patients-table-row";
 
 interface PatientsTableProps {
   searchParams: SearchParams;
@@ -44,26 +45,7 @@ export async function PatientsTable({ searchParams }: PatientsTableProps) {
             </TableRow>
           ) : (
             data.map((patient: Patient) => (
-              <TableRow
-                key={patient.id}
-                className="border-b last:border-0 hover:bg-gray-50"
-              >
-                <TableCell className="font-medium">{patient.name}</TableCell>
-                <TableCell>{patient.age}</TableCell>
-                <TableCell
-                  className={`${getStatusColor(patient.status)} font-medium`}
-                >
-                  {patient.status.replace("_", " ")}
-                </TableCell>
-                <TableCell>{patient.heartRate} bpm</TableCell>
-                <TableCell className="text-gray-600">
-                  {patient.notes.length > 0
-                    ? `${patient.notes[0].content} (${new Date(
-                        patient.notes[0].timestamp
-                      ).toLocaleDateString()})`
-                    : "No notes"}
-                </TableCell>
-              </TableRow>
+              <PatientsTableRow key={patient.id} {...patient} />
             ))
           )}
         </TableBody>

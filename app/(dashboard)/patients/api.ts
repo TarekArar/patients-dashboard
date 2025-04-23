@@ -1,5 +1,5 @@
 import { simulateApi } from "@/lib/simulate-api";
-import { Patient, SearchParams } from "./types";
+import { Note, Patient, SearchParams } from "./types";
 import { mockPatients } from "./mock-data";
 import { ApiResponse } from "@/types";
 
@@ -48,6 +48,55 @@ export function getPatients(
         }),
       status: 200,
       message: "Success",
+    },
+  });
+}
+
+type PatientResponse = ApiResponse<Patient>;
+
+export function getPatient(id: string): Promise<PatientResponse> {
+  return simulateApi<PatientResponse>({
+    data: {
+      data: mockPatients.find((patient) => patient.id == id)!,
+      status: 200,
+      message: "Success",
+    },
+  });
+}
+
+export function addPatientNote(
+  patientId: string,
+  content: string
+): Promise<ApiResponse<Note>> {
+  // Find the patient to update
+  const patient = mockPatients.find((p) => p.id === patientId);
+
+  if (!patient) {
+    return simulateApi<ApiResponse<Note>>({
+      data: {
+        status: 404,
+        message: "Patient not found",
+        data: null as any,
+      },
+    });
+  }
+
+  // Create a new note
+  const newNote: Note = {
+    id: `note-${Date.now()}`,
+    content,
+    timestamp: new Date().toISOString(),
+  };
+
+  // Add the note to the patient's notes array
+  patient.notes.unshift(newNote);
+
+  // Return the new note
+  return simulateApi<ApiResponse<Note>>({
+    data: {
+      data: newNote,
+      status: 200,
+      message: "Note added successfully",
     },
   });
 }

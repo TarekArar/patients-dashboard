@@ -25,4 +25,5 @@ export interface SearchParams {
   minAge?: string;
   maxAge?: string;
   sort?: string;
+  patientId?: string;
 }
