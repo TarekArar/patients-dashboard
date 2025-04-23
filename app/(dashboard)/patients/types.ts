@@ -20,7 +20,9 @@ export interface Patient {
 }
 
 export interface SearchParams {
+  query?: string;
   status?: string;
   minAge?: string;
   maxAge?: string;
+  sort?: string;
 }

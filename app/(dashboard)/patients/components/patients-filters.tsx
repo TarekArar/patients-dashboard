@@ -10,8 +10,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { PatientStatus } from "../types";
-import { Button } from "@/components/ui/button";
-import { X } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
 
 export function PatientsFilter() {
@@ -64,34 +62,11 @@ export function PatientsFilter() {
     }
   };
 
-  // Reset all filters
-  const resetFilters = () => {
-    router.push("");
-  };
-
-  // Check if any filter is active
-  const isFilterActive = currentStatus || minAge > 0 || maxAge < 100;
-
   return (
-    <div className="bg-white p-4 rounded-lg border mb-4">
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-lg font-medium">Filter Patients</h2>
-        {isFilterActive && (
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={resetFilters}
-            className="flex items-center gap-1"
-          >
-            <X className="h-4 w-4" />
-            Clear filters
-          </Button>
-        )}
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="space-y-2">
-          <Label htmlFor="status">Status</Label>
+    <div className="w-1/2 ">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="flex items-center space-x-2">
+          <Label htmlFor="status">Status:</Label>
           <Select
             value={currentStatus}
             onValueChange={(value) => updateFilters("status", value)}
@@ -110,28 +85,26 @@ export function PatientsFilter() {
           </Select>
         </div>
 
-        <div className="space-y-4">
+        <div className="flex items-center space-x-4">
           <div className="flex justify-between items-center">
-            <Label>Age Range</Label>
-            <span className="text-sm text-gray-500">
-              {minAge} - {maxAge} years
-            </span>
+            <Label>Age Range:</Label>
           </div>
 
-          <Slider
-            defaultValue={[minAge, maxAge]}
-            min={0}
-            max={100}
-            step={1}
-            minStepsBetweenThumbs={1}
-            onValueCommit={updateAgeRange}
-            className="py-4"
-          />
-
-          <div className="flex justify-between text-xs text-gray-500">
-            <span>0</span>
-            <span>50</span>
-            <span>100</span>
+          <div className="w-full space-y-">
+            <div className="flex justify-between text-xs text-gray-500">
+              <span>0</span>
+              <span>50</span>
+              <span>100</span>
+            </div>
+            <Slider
+              defaultValue={[minAge, maxAge]}
+              min={0}
+              max={100}
+              step={1}
+              minStepsBetweenThumbs={1}
+              onValueCommit={updateAgeRange}
+              className="py-4"
+            />
           </div>
         </div>
       </div>
