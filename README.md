@@ -1,6 +1,4 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
-
-## Getting Started
+## How To run the project
 
 First, run the development server:
 
@@ -16,21 +14,40 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Accessibility
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+This project uses [https://ui.shadcn.com/](shadcn/ui), which is built on top of Radix UI. Radix provides unstyled, accessible primitives for building high-quality UI components. This means:
 
-## Learn More
+- Keyboard navigation and focus management are handled out of the box
 
-To learn more about Next.js, take a look at the following resources:
+- ARIA attributes are properly applied
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Screen reader support is baked in
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Components follow WAI-ARIA accessibility best practices
 
-## Deploy on Vercel
+By relying on well-tested, accessible building blocks, we avoid reinventing the wheel and can focus on shipping actual features instead of rebuilding the same patterns from scratch.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## State Management
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Used Next.js search parameters for global state management—a built-in feature that stores state in the URL, enabling server components to fetch data based on param updates. This approach reduces bundle size, enhances security and performance, and improves SEO. It also eliminates the need for complex client-side state management. Additional benefits include:
+
+- Bookmarkable and shareable URLs
+
+- Built-in support for analytics and tracking via URL-based filters
+
+- Server-side rendering with direct access to URL params for initializing state
+
+Please check [https://nextjs.org/learn/dashboard-app/adding-search-and-pagination](nextjs-official-link) for detailed explanation if needed.
+
+## New React Features
+
+used react useOptimistic hook for optimistic updates. and useTransition hook to update the state without blocking the UI.
+
+## Form Management
+
+since the add note form is simple and contains only one field, I used useState only for managing the form, in bigger form I would use react-hook-form with zod for validation.
+
+## Real World Like App
+
+I tried to keep the app as real-world-like as possible. by grouping dashboard routes and providing navigation which is the needed case for most real-world apps/dashboard.
