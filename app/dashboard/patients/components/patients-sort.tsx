@@ -20,6 +20,8 @@ export function PatientsSort() {
   const updateSort = (value: string) => {
     const params = new URLSearchParams(searchParams.toString());
 
+    params.delete("patientId");
+
     if (value && value !== "default") {
       params.set("sort", value);
     } else {

@@ -57,9 +57,16 @@ export async function getPatients(
 type PatientResponse = ApiResponse<Patient>;
 
 export async function getPatient(id: string): Promise<PatientResponse> {
+  const patient = mockPatients.find((patient) => patient.id == id);
+  if (!patient) {
+    return simulateApi<PatientResponse>({
+      shouldSucceed: false,
+      error: "Patient not found",
+    });
+  }
   return simulateApi<PatientResponse>({
     data: {
-      data: mockPatients.find((patient) => patient.id == id)!,
+      data: patient,
       status: 200,
       message: "Success",
     },

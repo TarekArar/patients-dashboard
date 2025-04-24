@@ -24,7 +24,7 @@ export function PatientDrawer({ children }: { children: React.ReactNode }) {
     const params = new URLSearchParams(searchParams);
     params.delete("patientId");
     replace(`${pathname}?${params.toString()}`);
-  }, 200);
+  }, 100);
 
   return (
     <Drawer
