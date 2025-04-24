@@ -78,7 +78,7 @@ export async function addPatientNote(
       data: {
         status: 404,
         message: "Patient not found",
-        data: null as any,
+        data: null as unknown as Note,
       },
     });
   }

@@ -7,7 +7,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Patient, SearchParams } from "../types";
-import { getStatusColor } from "../utils";
 import { getPatients } from "../api";
 import { PatientsTableRow } from "./patients-table-row";
 

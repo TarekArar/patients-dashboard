@@ -18,7 +18,7 @@ export function PatientDrawer({ children }: { children: React.ReactNode }) {
     } else {
       setIsOpen(false);
     }
-  }, [searchParams]); // eslint-disable-line react-hooks/exhaustive-dep
+  }, [searchParams]);
 
   const onClose = useDebouncedCallback(() => {
     const params = new URLSearchParams(searchParams);
