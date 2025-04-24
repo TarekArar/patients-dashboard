@@ -15,13 +15,13 @@ export function PatientsTableRow({
 }: Patient) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
-  const { replace } = useRouter();
+  const { push } = useRouter();
 
   const onClick = () => {
     const params = new URLSearchParams(searchParams);
     params.set("patientId", id);
 
-    replace(`${pathname}?${params.toString()}`);
+    push(`${pathname}?${params.toString()}`);
   };
 
   return (
