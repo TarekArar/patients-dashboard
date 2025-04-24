@@ -7,6 +7,8 @@ import Search from "@/components/search";
 import { PatientsSort } from "./components/patients-sort";
 import { Spinner } from "@/components/spinner";
 import { PatientDetails } from "./components/patient-details";
+import { PatientDrawer } from "./components/patient-drawer";
+import { PatientDetailsSkeleton } from "./components/patient-details-skeleton";
 
 export default async function PatientsList({
   searchParams,
@@ -45,9 +47,11 @@ export default async function PatientsList({
         </Suspense>
 
         {searchParams.patientId ? (
-          <Suspense fallback={<Spinner />}>
-            <PatientDetails patientId={searchParams.patientId ?? ""} />
-          </Suspense>
+          <PatientDrawer>
+            <Suspense fallback={<PatientDetailsSkeleton />}>
+              <PatientDetails patientId={searchParams.patientId} />
+            </Suspense>
+          </PatientDrawer>
         ) : null}
       </div>
     </div>
