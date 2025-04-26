@@ -15,7 +15,6 @@ export default function Search({
 
   const handleSearch = useDebouncedCallback((term: string) => {
     const params = new URLSearchParams(searchParams);
-    params.delete("patientId");
     if (term) {
       params.set("query", term);
     } else {

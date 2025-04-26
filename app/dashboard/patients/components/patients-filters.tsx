@@ -29,7 +29,6 @@ export function PatientsFilter() {
   const updateFilters = (name: string, value: string) => {
     const params = new URLSearchParams(searchParams.toString());
 
-    params.delete("patientId");
     if (value && (name !== "status" || value !== "all")) {
       params.set(name, value);
     } else {
