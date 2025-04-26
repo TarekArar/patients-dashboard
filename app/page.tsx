@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { Metadata } from "next";
 
 export default function Home() {
   return (
