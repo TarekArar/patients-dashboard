@@ -19,10 +19,10 @@ export async function PatientDetails({ patientId }: { patientId: string }) {
       <>
         <DrawerHeader>
           <DrawerTitle className="text-2xl flex items-center justify-between">
-            <div className="flex items-center gap-3">
+            <span className="flex items-center gap-3">
               {patient.name}
               <StatusBadge status={patient.status} />
-            </div>
+            </span>
 
             <DrawerClose asChild>
               <Button variant="outline" className="rounded-full p-0 size-8">
