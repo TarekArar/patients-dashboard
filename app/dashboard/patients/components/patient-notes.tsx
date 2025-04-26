@@ -123,6 +123,13 @@ export function PatientNotes({ patientId, existingNotes }: PatientNotesProps) {
     }
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      formRef.current?.requestSubmit();
+    }
+  };
+
   return (
     <div className="px-4">
       <div className="space-y-4">
@@ -146,6 +153,7 @@ export function PatientNotes({ patientId, existingNotes }: PatientNotesProps) {
                 })}
                 value={note}
                 onChange={handleNoteChange}
+                onKeyDown={handleKeyDown}
                 disabled={isSubmitting || isPending}
               />
 
