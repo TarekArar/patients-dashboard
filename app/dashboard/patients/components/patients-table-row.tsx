@@ -1,9 +1,9 @@
 "use client";
 
 import { TableCell, TableRow } from "@/components/ui/table";
-import { Patient } from "../types";
-import { getStatusColor } from "../utils";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { Patient } from "../types";
+import { StatusBadge } from "./status-badge";
 
 export function PatientsTableRow({
   id,
@@ -31,8 +31,8 @@ export function PatientsTableRow({
     >
       <TableCell className="font-medium">{name}</TableCell>
       <TableCell>{age}</TableCell>
-      <TableCell className={`${getStatusColor(status)} font-medium`}>
-        {status.replace("_", " ")}
+      <TableCell className={`font-medium`}>
+        <StatusBadge status={status} />
       </TableCell>
       <TableCell>{heartRate} bpm</TableCell>
       <TableCell className="text-gray-600">

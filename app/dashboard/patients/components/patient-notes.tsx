@@ -131,11 +131,19 @@ export function PatientNotes({ patientId, existingNotes }: PatientNotesProps) {
   };
 
   return (
-    <div className="px-4">
+    <div className="px-4" role="region" aria-label="Patient Notes Section">
       <div className="space-y-4">
         <div>
-          <form ref={formRef} onSubmit={handleSubmit} className="mb-4">
-            <h3 className="text-lg font-semibold mb-2">Add Note</h3>
+          <form
+            ref={formRef}
+            onSubmit={handleSubmit}
+            className="mb-4"
+            aria-label="Add Patient Note Form"
+            role="form"
+          >
+            <h3 className="text-lg font-semibold mb-2" id="add-note-heading">
+              Add Note
+            </h3>
 
             {error && (
               <Alert variant="destructive" className="mb-3">
@@ -151,6 +159,9 @@ export function PatientNotes({ patientId, existingNotes }: PatientNotesProps) {
                 className={cn("min-h-[100px]", {
                   "border-red-500 focus:ring-red-500": isOverLimit,
                 })}
+                aria-label="Patient Note Input"
+                aria-describedby="note-constraints note-count"
+                aria-invalid={isOverLimit}
                 value={note}
                 onChange={handleNoteChange}
                 onKeyDown={handleKeyDown}
@@ -163,9 +174,14 @@ export function PatientNotes({ patientId, existingNotes }: PatientNotesProps) {
                   "text-amber-500": !isOverLimit && isNearLimit,
                   "text-gray-500": !isOverLimit && !isNearLimit,
                 })}`}
+                id="note-constraints"
+                role="status"
+                aria-live="polite"
               >
                 <span>{`Min ${MIN_NOTE_LENGTH} characters`}</span>
-                <span>{`${note.length}/${MAX_NOTE_LENGTH} characters ${
+                <span id="note-count">{`${
+                  note.length
+                }/${MAX_NOTE_LENGTH} characters ${
                   isOverLimit ? "(exceeded maximum)" : ""
                 }`}</span>
               </div>

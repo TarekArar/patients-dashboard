@@ -33,8 +33,16 @@ export function PatientDrawer({ children }: { children: React.ReactNode }) {
         setIsOpen(false);
         onClose();
       }}
+      aria-modal="true"
+      aria-label="Patient Details"
     >
-      <DrawerContent className="w-[33vw]">{children}</DrawerContent>
+      <DrawerContent
+        className="w-[33vw]"
+        role="region"
+        aria-label="Patient Information"
+      >
+        {children}
+      </DrawerContent>
     </Drawer>
   );
 }

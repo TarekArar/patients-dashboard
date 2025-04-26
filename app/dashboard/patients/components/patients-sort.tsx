@@ -9,57 +9,78 @@ import {
 } from "@/components/ui/select";
 import { ArrowDownAZ, ArrowUpAZ } from "lucide-react";
 
+const sortOptions = [
+  { value: "default", label: "Default order" },
+  { value: "name_asc", label: "Name (A-Z)" },
+  { value: "name_desc", label: "Name (Z-A)" },
+  { value: "heartRate_asc", label: "Heart Rate (Low-High)" },
+  { value: "heartRate_desc", label: "Heart Rate (High-Low)" },
+] as const;
+
 export function PatientsSort() {
   const router = useRouter();
   const searchParams = useSearchParams();
-
-  // Get current sort value from URL
   const currentSort = searchParams.get("sort") || "";
 
-  // Update sort
   const updateSort = (value: string) => {
     const params = new URLSearchParams(searchParams.toString());
-
     if (value && value !== "default") {
       params.set("sort", value);
     } else {
       params.delete("sort");
     }
-
     router.push(`?${params.toString()}`);
   };
 
-  // Get sort icon based on current sort
   const getSortIcon = () => {
     if (!currentSort) return null;
+    return currentSort.includes("asc") ? (
+      <ArrowUpAZ className="h-4 w-4 ml-2" />
+    ) : (
+      <ArrowDownAZ className="h-4 w-4 ml-2" />
+    );
+  };
 
-    if (currentSort.includes("asc")) {
-      return <ArrowUpAZ className="h-4 w-4 ml-2" />;
-    } else {
-      return <ArrowDownAZ className="h-4 w-4 ml-2" />;
-    }
+  const getCurrentLabel = () => {
+    if (!currentSort) return "Sort by";
+    return (
+      sortOptions.find((option) => option.value === currentSort)?.label ||
+      "Sort by"
+    );
   };
 
   return (
-    <Select value={currentSort} onValueChange={updateSort}>
-      <SelectTrigger className="h-10 w-[180px]">
+    <Select
+      value={currentSort}
+      onValueChange={updateSort}
+      aria-label="Sort patients list"
+    >
+      <SelectTrigger
+        className="h-10 w-[180px]"
+        aria-label="Sort by"
+        aria-expanded="false"
+        aria-haspopup="listbox"
+      >
         <div className="flex items-center">
-          <span className="truncate">
-            {!currentSort && "Sort by"}
-            {currentSort === "name_asc" && "Name (A-Z)"}
-            {currentSort === "name_desc" && "Name (Z-A)"}
-            {currentSort === "heartRate_asc" && "Heart Rate (Low-High)"}
-            {currentSort === "heartRate_desc" && "Heart Rate (High-Low)"}
+          <span className="truncate" aria-live="polite">
+            {getCurrentLabel()}
           </span>
-          {getSortIcon()}
+          {getSortIcon() && (
+            <span className="sr-only">
+              {currentSort.includes("asc")
+                ? "Sorted ascending"
+                : "Sorted descending"}
+            </span>
+          )}
+          <span aria-hidden="true">{getSortIcon()}</span>
         </div>
       </SelectTrigger>
-      <SelectContent>
-        <SelectItem value="default">Default order</SelectItem>
-        <SelectItem value="name_asc">Name (A-Z)</SelectItem>
-        <SelectItem value="name_desc">Name (Z-A)</SelectItem>
-        <SelectItem value="heartRate_asc">Heart Rate (Low-High)</SelectItem>
-        <SelectItem value="heartRate_desc">Heart Rate (High-Low)</SelectItem>
+      <SelectContent role="listbox">
+        {sortOptions.map((option) => (
+          <SelectItem key={option.value} value={option.value} role="option">
+            {option.label}
+          </SelectItem>
+        ))}
       </SelectContent>
     </Select>
   );
