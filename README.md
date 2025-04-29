@@ -16,7 +16,9 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## Accessibility
 
-This project uses [https://ui.shadcn.com/](shadcn/ui), which is built on top of Radix UI. Radix provides unstyled, accessible primitives for building high-quality UI components. This means:
+- I used semantic html tags and aria attributes to make the app accessible.
+
+also used [https://ui.shadcn.com/](shadcn/ui), which is built on top of Radix UI. Radix provides unstyled, accessible primitives for building high-quality UI components. This means:
 
 - Keyboard navigation and focus management are handled out of the box
 
